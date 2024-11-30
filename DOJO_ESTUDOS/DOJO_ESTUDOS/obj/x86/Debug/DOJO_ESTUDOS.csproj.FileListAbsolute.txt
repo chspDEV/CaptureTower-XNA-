@@ -1,0 +1,11 @@
+C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\DOJO_ESTUDOS.exe
+C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\DOJO_ESTUDOS.pdb
+C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\obj\x86\Debug\DOJO_ESTUDOS.csprojResolveAssemblyReference.cache
+C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\obj\x86\Debug\DOJO_ESTUDOS.exe
+C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\obj\x86\Debug\DOJO_ESTUDOS.pdb
+C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Modelos\IAModel.xnb
+C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Modelos\GroundModel.xnb
+C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Modelos\projectileModel.xnb
+C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Fonts\DebugFont.xnb
+C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Modelos\TorreModel.xnb

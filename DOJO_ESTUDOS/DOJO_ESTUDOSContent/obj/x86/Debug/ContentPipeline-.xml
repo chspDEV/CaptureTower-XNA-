@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Modelos\IAModel.fbx</Source>
+      <Name>Modelos\IAModel</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Modelos\IAModel.xnb</Output>
+      <Time>2024-11-11T20:42:15.0137166-03:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Modelos\IAModel_0.xml</Key>
+        <Value>2024-11-11T21:08:57.3757438-03:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Modelos\GroundModel.fbx</Source>
+      <Name>Modelos\GroundModel</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Modelos\GroundModel.xnb</Output>
+      <Time>2024-11-11T21:06:03.4913585-03:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Modelos\GroundModel_0.xml</Key>
+        <Value>2024-11-11T21:08:57.4175274-03:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Modelos\IAModel.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Modelos\IAModel_0.xml</Output>
+      <Time>2024-11-11T20:42:15.0137166-03:00</Time>
+    </Item>
+    <Item>
+      <Source>Modelos\GroundModel.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Modelos\GroundModel_0.xml</Output>
+      <Time>2024-11-11T21:06:03.4913585-03:00</Time>
+    </Item>
+    <Item>
+      <Source>Modelos\projectileModel.fbx</Source>
+      <Name>Modelos\projectileModel</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Modelos\projectileModel.xnb</Output>
+      <Time>2024-11-27T12:16:44.4638111-03:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Modelos\projectileModel_0.xml</Key>
+        <Value>2024-11-27T12:17:08.3109013-03:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Modelos\projectileModel.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Modelos\projectileModel_0.xml</Output>
+      <Time>2024-11-27T12:16:44.4638111-03:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\DebugFont.spritefont</Source>
+      <Name>Fonts\DebugFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Fonts\DebugFont.xnb</Output>
+      <Time>2024-11-30T18:00:28.381898-03:00</Time>
+    </Item>
+    <Item>
+      <Source>Modelos\TorreModel.fbx</Source>
+      <Name>Modelos\TorreModel</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Modelos\TorreModel.xnb</Output>
+      <Time>2024-11-30T11:17:55.5677183-03:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Modelos\TorreModel_0.xml</Key>
+        <Value>2024-11-30T11:17:57.0812718-03:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Modelos\TorreModel.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Modelos\TorreModel_0.xml</Output>
+      <Time>2024-11-30T11:17:55.5677183-03:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID Null="true" />
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>HiDef</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOSContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOSContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-03:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2024-11-03T19:59:34.7542328-03:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

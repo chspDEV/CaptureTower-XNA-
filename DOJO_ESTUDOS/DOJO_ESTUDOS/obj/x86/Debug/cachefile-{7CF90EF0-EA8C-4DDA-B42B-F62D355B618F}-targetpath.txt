@@ -1,0 +1,5 @@
+Content\Modelos\IAModel.xnb
+Content\Modelos\GroundModel.xnb
+Content\Modelos\projectileModel.xnb
+Content\Fonts\DebugFont.xnb
+Content\Modelos\TorreModel.xnb
