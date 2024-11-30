@@ -1,5 +1,9 @@
 Content\Modelos\IAModel.xnb
 Content\Modelos\GroundModel.xnb
 Content\Modelos\projectileModel.xnb
-Content\Fonts\DebugFont.xnb
 Content\Modelos\TorreModel.xnb
+Content\Fonts\DebugFont.xnb
+Content\Fonts\Ranking.xnb
+Content\Fonts\Timer.xnb
+Content\Fonts\Names.xnb
+Content\Fonts\RankingSmall.xnb

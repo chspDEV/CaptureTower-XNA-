@@ -1,1 +1,2 @@
 C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOSContent\obj\x86\Debug\DOJO_ESTUDOSContent.contentprojResolveAssemblyReference.cache
+C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\CaptureTower\DOJO_ESTUDOS\DOJO_ESTUDOSContent\obj\x86\Debug\DOJO_ESTUDOSContent.contentprojResolveAssemblyReference.cache

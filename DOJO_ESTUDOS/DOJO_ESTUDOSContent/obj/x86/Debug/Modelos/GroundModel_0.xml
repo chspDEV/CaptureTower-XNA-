@@ -3,7 +3,7 @@
   <Asset Type="Graphics:MeshContent">
     <Name>Cube</Name>
     <Identity>
-      <SourceFilename>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOSContent\Modelos\GroundModel.fbx</SourceFilename>
+      <SourceFilename>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\CaptureTower\DOJO_ESTUDOS\DOJO_ESTUDOSContent\Modelos\GroundModel.fbx</SourceFilename>
       <SourceTool>FbxImporter</SourceTool>
     </Identity>
     <Transform>3 0 0 0 0 0.049999997 -8.146034E-09 0 0 4.88762055E-07 3 0 0 0 0 1</Transform>
@@ -26,7 +26,7 @@
     <Resource ID="#Resource1" Type="Graphics:BasicMaterialContent">
       <Name>Material.001</Name>
       <Identity>
-        <SourceFilename>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\DOJO_ESTUDOS\DOJO_ESTUDOSContent\Modelos\GroundModel.fbx</SourceFilename>
+        <SourceFilename>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\CaptureTower\DOJO_ESTUDOS\DOJO_ESTUDOSContent\Modelos\GroundModel.fbx</SourceFilename>
         <SourceTool>FbxImporter</SourceTool>
       </Identity>
       <OpaqueData>

@@ -27,6 +27,8 @@ namespace DOJO_ESTUDOS
         private Model model, projectileModel;
         public string name;
 
+        public Vector3 myColor; //Usando assim por enquanto!
+
         private int Health;
         private int Damage;
         private IAState State;
@@ -62,12 +64,15 @@ namespace DOJO_ESTUDOS
 
             //decidindo nome
             name = GameManager.Instance.GetRandomName(random);
+
+            // decidindo cor
+
+            myColor = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
         }
 
         private void StateLogic(GameTime gameTime)
         {
-            if (State == IAState.Dead) return;
-
+           
             switch (State)
             {
                 case IAState.Idle:
@@ -97,8 +102,8 @@ namespace DOJO_ESTUDOS
                     FindNearestTarget();
                     break;
                 case IAState.Dead:
-                    scale = .1f;
-                    if (Position.Y > -5)
+                    
+                    if (Position.Y > -0.5f)
                     {
                         Move(new Vector3(0, -moveDistance, 0));
                     }
@@ -271,6 +276,8 @@ namespace DOJO_ESTUDOS
 
         public int GetScore() { return score; }
 
+        public IAState GetState() { return State; }
+
         public float GetScale() { return scale; }
 
         public void CaptureTower(Tower newTower)
@@ -283,7 +290,7 @@ namespace DOJO_ESTUDOS
 
         public void Update(GameTime gameTime)
         {
-
+            if (GameManager.Instance.HasWinner) return;
 
             //debug PARA TROCAR DE ESTADOS POR ENQUANTO!!!
 
@@ -320,6 +327,7 @@ namespace DOJO_ESTUDOS
                     effect.View = view;
                     effect.Projection = projection;
                     effect.EnableDefaultLighting();
+                    effect.DiffuseColor = myColor; // Cor aleatoria
                 }
                 mesh.Draw();
             }

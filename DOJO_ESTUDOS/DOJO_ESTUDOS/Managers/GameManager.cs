@@ -10,38 +10,17 @@ namespace DOJO_ESTUDOS
     {
         public static GameManager Instance;
         public List<IA> ias;
+        public List<Tower> towers;
         public Camera camera;
+        public float timerMax = 60f * 2f; // 2 Minutos
+        public float timer; 
+        public bool HasWinner {get; private set;}
 
         private List<string> nomes_aleatorios = new List<string>
         {
-            "Jorge",
-            "Andre",
-            "David",
-            "Lucy",
-            "Pussy",
-            "Anitta",
-            "JohnPersona",
-            "XxDestroyerxX",
-            "Megaton",
-            "20MATAR70CORRER",
-            "PedroTransas",
-            "Solid Snake",
-            "Cobra solida",
-            "Liquid Snake",
-            "Venom Snake",
-            "Big Boss",
-            "Rayden",
-            "Tem Sexo nesse jogo?",
-            "David Jhones",
-            "Podcast",
-            "O mago",
-            "Monark",
-            "Pode pa",
-            "Igao",
-            "Rownaldinho",
-            "Enaldinho",
-            "P Diddy",
-            "BDSM"
+            "Max",
+            "Henrique",
+            "Jhon"
         };
 
 
@@ -53,11 +32,20 @@ namespace DOJO_ESTUDOS
             }
 
             Instance = this;
+            timer = timerMax;
         }
 
         public void Update(GameTime gt)
-        { 
-            
+        {
+            if (timer <= 0f && !HasWinner)
+            {
+                timer = 0f;
+                CheckWin();
+            }
+            else  if (!HasWinner)
+            {
+                timer -= (float)gt.ElapsedGameTime.TotalSeconds;
+            }
         }
 
        
@@ -70,6 +58,52 @@ namespace DOJO_ESTUDOS
             string selectedName = nomes_aleatorios[index];
             nomes_aleatorios.RemoveAt(index); // Remove o nome para evitar duplicatas
             return selectedName;
+        }
+
+        public string GetTimerText()
+        {
+            int minutes = (int)Math.Floor(timer / 60); // Divide o total de segundos por 60 para obter minutos
+            int seconds = (int)Math.Floor(timer % 60); // Usa o resto da divisão para obter os segundos
+
+            // Formata a string
+            string formattedTime = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+            string displayText = "Tempo: " + formattedTime;
+
+            return displayText;
+        }
+
+        public void CheckWin()
+        {
+            if (HasWinner) return;
+
+            List<IA> survivors = new List<IA>();
+            IA winner;
+
+            foreach (var ia in ias)
+            {
+                if (ia.GetHealth() > 0f) survivors.Add(ia);
+            }
+
+            //Desempate por pontos
+            if (survivors.Count >= 2)
+            {
+                survivors.Sort((ia1, ia2) => ia2.GetScore().CompareTo(ia1.GetScore()));
+            }
+
+            winner = survivors[0];
+            winner.name += " [VENCEDOR] ";
+            HasWinner = true;
+        }
+
+        public void UpdateIAList(List<IA> i)
+        {
+            ias = i;
+        }
+
+        public void UpdateTowerList(List<Tower> t)
+        {
+            towers = t;
         }
 
     }

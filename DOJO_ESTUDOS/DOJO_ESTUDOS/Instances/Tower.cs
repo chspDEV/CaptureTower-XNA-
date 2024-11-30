@@ -13,18 +13,35 @@ namespace DOJO_ESTUDOS
         public Vector3 Position { get; private set; }
         private Matrix Orientation = Matrix.Identity;
         private float scale;
+        public IA owner;
+        public Vector3 myColor = Vector3.Zero; //trocar dps
 
         public Tower(Model model, Vector3 initialPosition, float scale)
         {
             this.model = model;
             this.Position = initialPosition;
-            this.scale = scale;
+            this.scale = scale;       
         }
 
         public void Update(GameTime gt)
-        { 
-            
+        {
+
+            if (owner != null && owner.GetState() == IAState.Dead) 
+            {
+                owner = null;
+                myColor = Vector3.One;
+            } 
         }
+
+        public void SetupOwner(IA owner)
+        {
+            if (owner == null) return;
+
+            this.owner = owner;
+            myColor = owner.myColor;
+        }
+
+        public float GetScale() { return scale; }
 
         public void Draw(Matrix view, Matrix projection)
         {
@@ -45,6 +62,9 @@ namespace DOJO_ESTUDOS
                     effect.View = view;
                     effect.Projection = projection;
                     effect.EnableDefaultLighting();
+
+                    if(myColor != null)
+                    effect.DiffuseColor = myColor;
                 }
                 mesh.Draw();
             }

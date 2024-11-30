@@ -20,8 +20,6 @@ namespace DOJO_ESTUDOS
         private GameManager gm;
         private UIManager ui;
 
-        private SpriteFont debugFont;
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -54,10 +52,26 @@ namespace DOJO_ESTUDOS
             towerModel = Content.Load<Model>(@"Modelos\TorreModel");
 
             // Carregando fontes
-            debugFont = Content.Load<SpriteFont>(@"Fonts\DebugFont");
-            ui = new UIManager(debugFont);
+            SpriteFont debugFont = Content.Load<SpriteFont>(@"Fonts\DebugFont");
+            SpriteFont rankingFont = Content.Load<SpriteFont>(@"Fonts\Ranking");
+            SpriteFont namesFont = Content.Load<SpriteFont>(@"Fonts\Names");
+            SpriteFont timerFont = Content.Load<SpriteFont>(@"Fonts\Timer");
+            SpriteFont rankingSmallFont = Content.Load<SpriteFont>(@"Fonts\RankingSmall");
 
-            int players = 27;
+            List<SpriteFont> fonts = new List<SpriteFont>();
+
+            fonts.Add(debugFont);
+            fonts.Add(rankingFont);
+            fonts.Add(namesFont);
+            fonts.Add(timerFont);
+            fonts.Add(rankingSmallFont);
+           
+            ui = new UIManager(fonts);
+
+            // Instanciando IAs e Torres
+
+            int players = 3;
+            UIManager.Instance.SetText(UIManager.Instance.debugTexts, 1, "Players: " + players.ToString());
 
             ui.ranking = new List<String>(players);
 
@@ -86,17 +100,18 @@ namespace DOJO_ESTUDOS
                         r * offsetSpawn - gridHeight / 2 
                     );
 
-                    IA ia = new IA(iaModel, projectileModel, startPosition, initialHealth: 100, damage: 10, scale: .01f);
+                    IA ia = new IA(iaModel, projectileModel, startPosition, initialHealth: 100, damage: 50, scale: .01f);
 
                     startPosition.Z -= 15f;
                     Tower torre = new Tower(towerModel, startPosition, scale: 2f);
+                    torre.SetupOwner(ia);
 
                    
                     ias.Add(ia);
                     towers.Add(torre);
 
-                   
-                    UpdateIAList();
+                    GameManager.Instance.UpdateIAList(ias);
+                    GameManager.Instance.UpdateTowerList(towers);
                 }
             }
 
@@ -156,11 +171,6 @@ namespace DOJO_ESTUDOS
 
 
             base.Draw(gameTime);
-        }
-
-        public void UpdateIAList()
-        {
-            GameManager.Instance.ias = ias;
         }
 
     }

@@ -23,7 +23,8 @@ namespace DOJO_ESTUDOS
             Direction = Vector3.Normalize(targetPosition - startPosition);
 
             // Evitar spawn dentro do alvo
-            float collisionDistance = 1.0f; 
+            float collisionDistance = 1.7f; 
+
             if (Vector3.Distance(startPosition, targetPosition) < collisionDistance)
             {
                 Position = startPosition - Direction * collisionDistance;
@@ -33,7 +34,7 @@ namespace DOJO_ESTUDOS
                 Position = startPosition;
             }
 
-            //GameManager.Instance.camera.ChangePosition(Position);
+            GameManager.Instance.camera.ChangePosition(Position);
 
             Damage = damage;
             IsActive = true;
