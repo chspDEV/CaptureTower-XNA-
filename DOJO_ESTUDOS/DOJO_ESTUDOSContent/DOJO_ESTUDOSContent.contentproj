@@ -56,13 +56,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Modelos\projectileModel.fbx">
-      <Name>projectileModel</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Fonts\DebugFont.spritefont">
       <Name>DebugFont</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -102,6 +95,13 @@
       <Name>RankingSmall</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Modelos\projectileModel.fbx">
+      <Name>projectileModel</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

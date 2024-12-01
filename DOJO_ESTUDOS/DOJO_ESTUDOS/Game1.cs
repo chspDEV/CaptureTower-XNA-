@@ -25,9 +25,10 @@ namespace DOJO_ESTUDOS
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            // Configurando o tamanho inicial da janela
-            graphics.PreferredBackBufferWidth = 1280; // Largura
-            graphics.PreferredBackBufferHeight = 720; // Altura
+
+            // Configurando o tamanho da tela
+            graphics.PreferredBackBufferWidth = 1280; 
+            graphics.PreferredBackBufferHeight = 720; 
             graphics.ApplyChanges(); // Aplicar as mudanças
         }
 
@@ -70,12 +71,12 @@ namespace DOJO_ESTUDOS
 
             // Instanciando IAs e Torres
 
-            int players = 3;
+            int players = 2;
             UIManager.Instance.SetText(UIManager.Instance.debugTexts, 1, "Players: " + players.ToString());
 
             ui.ranking = new List<String>(players);
 
-            ground = new Ground(GraphicsDevice, Color.Green, players * 5.5f);
+            ground = new Ground(GraphicsDevice, Color.Green, players * 7f);
 
             
             int offsetSpawn = Math.Max(5, (int)(10 * Math.Sqrt(players)));
@@ -87,6 +88,9 @@ namespace DOJO_ESTUDOS
             float gridWidth = (columns - 1) * offsetSpawn;
             float gridHeight = (rows - 1) * offsetSpawn;
 
+            gm.mapHeight = gridHeight;
+            gm.mapWidth = gridWidth;
+
             for (int c = 0; c < columns; c++) // colunas
             {
                 for (int r = 0; r < rows; r++) // linhas
@@ -97,12 +101,13 @@ namespace DOJO_ESTUDOS
                     Vector3 startPosition = new Vector3(
                         c * offsetSpawn - gridWidth / 2,       
                         1,
-                        r * offsetSpawn - gridHeight / 2 
+                        r * offsetSpawn - gridHeight / 2
                     );
 
-                    IA ia = new IA(iaModel, projectileModel, startPosition, initialHealth: 100, damage: 50, scale: .01f);
+                    IA ia = new IA(iaModel, projectileModel, startPosition, initialHealth: 100, damage: 5, scale: .01f);
 
-                    startPosition.Z -= 15f;
+                    startPosition.Z -= 5f;
+                    startPosition.Y -= 1f;
                     Tower torre = new Tower(towerModel, startPosition, scale: 2f);
                     torre.SetupOwner(ia);
 
@@ -121,6 +126,7 @@ namespace DOJO_ESTUDOS
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
 
             camera.Update();
 

@@ -40,6 +40,16 @@ namespace DOJO_ESTUDOS
             };
         }
 
+        public Vector3 GetCenter()
+        {
+            // Usar os vértices diagonalmente opostos
+            Vector3 v1 = new Vector3(-1, 0, -1) * scale;  // Inferior esquerdo
+            Vector3 v2 = new Vector3(1, 0, 1) * scale;   // Superior direito
+
+            // Calcular o ponto médio
+            return (v1 + v2) / 2;
+        }
+
         public void Draw(GraphicsDevice graphicsDevice, Matrix view, Matrix projection)
         {
             // Configurar o efeito para desenhar os vértices

@@ -106,7 +106,25 @@ namespace DOJO_ESTUDOS
                 Vector2 textSize = font.MeasureString(displayName);
                 Vector2 textScreenPosition = new Vector2(screenPosition.X - textSize.X / 2, screenPosition.Y - textSize.Y / 2);
 
+                Vector2 debugOffset = new Vector2(0, 15f);
+
                 spriteBatch.DrawString(font, displayName, textScreenPosition, Color.White);
+
+                if (GameManager.Instance.activeDebug)
+                {
+                    spriteBatch.DrawString(font, instance.GetState().ToString(), textScreenPosition - debugOffset, Color.White);
+                    spriteBatch.DrawString(font, instance.GetHealth().ToString(), textScreenPosition + debugOffset, Color.White);
+
+                    string str = "";
+
+                    for (var i = 0; i < instance.GetProjectiles().Count; i++) 
+                    {
+                        str += instance.GetProjectiles()[i].identifier;
+                    } 
+
+                    spriteBatch.DrawString(font, str, textScreenPosition + debugOffset * 2f, Color.Red);
+                }
+                    
                
             }
         }

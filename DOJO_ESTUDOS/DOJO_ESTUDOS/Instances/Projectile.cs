@@ -12,18 +12,19 @@ namespace DOJO_ESTUDOS
 
         private float speed = 10f;
         //scale = .35f;
-        private float scale = 5f;
+        private float scale = .35f;
         private Model model;  // O modelo 3D do projétil
 
         private float lifeTime = 10f;
         private float count;
+        public string identifier = " [b] ";
 
         public Projectile(Vector3 startPosition, Vector3 targetPosition, int damage, Model projectileModel)
         {
             Direction = Vector3.Normalize(targetPosition - startPosition);
 
             // Evitar spawn dentro do alvo
-            float collisionDistance = 1.7f; 
+            float collisionDistance = 1f; 
 
             if (Vector3.Distance(startPosition, targetPosition) < collisionDistance)
             {
@@ -34,7 +35,8 @@ namespace DOJO_ESTUDOS
                 Position = startPosition;
             }
 
-            GameManager.Instance.camera.ChangePosition(Position);
+            //Debug
+            //GameManager.Instance.camera.ChangePosition(Position);
 
             Damage = damage;
             IsActive = true;
@@ -47,7 +49,7 @@ namespace DOJO_ESTUDOS
 
             Position += Direction * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            count += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            count +=(float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (count >= lifeTime) Deactivate();
         }
@@ -58,14 +60,16 @@ namespace DOJO_ESTUDOS
             IsActive = false;
         }
 
-        public bool CheckCollision()
+        public bool CheckCollision(IA caller)
         {
-            float collisionDistance = 1.5f; 
+            float collisionDistance = 1f; 
             float closestDistance = float.MaxValue;
             IA closestTarget = null;
 
             foreach (IA ia in GameManager.Instance.ias)
             {
+                if (ia != caller) continue;
+
                 float distance = Vector3.Distance(Position, ia.Position);
 
                 // Atualiza o alvo mais próximo
@@ -93,7 +97,8 @@ namespace DOJO_ESTUDOS
             Matrix scaleMatrix = Matrix.CreateScale(scale, scale, scale);
 
             // Matriz de mundo para posicionar e alinhar o projétil na direção certa
-            Matrix world = Matrix.CreateWorld(Position, Direction, Vector3.Up);
+            Matrix world = Matrix.CreateScale(scale) * Matrix.CreateWorld(Position, Direction, Vector3.Up);
+
 
             //multiplicando tudo junto
             world = scaleMatrix * world;
@@ -109,6 +114,8 @@ namespace DOJO_ESTUDOS
                 }
                 mesh.Draw();
             }
+
+
         }
     }
 }

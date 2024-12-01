@@ -59,15 +59,15 @@ namespace DOJO_ESTUDOS
             State = IAState.Idle;
             this.scale = scale;
 
-            // Gerar um valor aleatório, mas com um offset
-            randomStateTimerMax = 1f;
+
+            randomStateTimerMax = Math.Max(1f, 1f * (float)random.NextDouble() * random.Next(1,2));
 
             //decidindo nome
             name = GameManager.Instance.GetRandomName(random);
 
             // decidindo cor
-
             myColor = new Vector3((float)random.NextDouble(), (float)random.NextDouble(), (float)random.NextDouble());
+
         }
 
         private void StateLogic(GameTime gameTime)
@@ -128,7 +128,19 @@ namespace DOJO_ESTUDOS
 
         private void Move(Vector3 direction)
         {
-            Position += direction * speed * 0.1f;  // 0.1f controla a velocidade do movimento
+            Vector3 deslocamento = direction * speed * 0.1f;
+            Vector3 posicaoFutura = Position + deslocamento;
+
+            // X
+            if (posicaoFutura.X < 0 || posicaoFutura.X > GameManager.Instance.mapWidth)
+                deslocamento.X = 0; 
+
+            // Z
+            if (posicaoFutura.Z < 0 || posicaoFutura.Z > GameManager.Instance.mapHeight)
+                deslocamento.Z = 0; 
+
+
+            Position += deslocamento;
         }
 
         private void Attack(GameTime gameTime)
@@ -172,7 +184,7 @@ namespace DOJO_ESTUDOS
                     projectile.Update(gameTime);
 
                     // Verifica se o projetil acertou
-                    if (target != null && projectile.CheckCollision())
+                    if (target != null && projectile.CheckCollision(this))
                     {
                         target.TakeDamage(projectile.Damage);
                         score++;
@@ -185,13 +197,15 @@ namespace DOJO_ESTUDOS
                 }
             }
 
-            projectiles.RemoveAll(p => !p.IsActive);
+           projectiles.RemoveAll(p => !p.IsActive);
         }
 
         private void OnDefeated()
         {
             score -= 10;
             State = IAState.Dead;
+            target = null;
+            GameManager.Instance.CheckWin();
         }
 
         private void LookAtTarget()
@@ -277,6 +291,8 @@ namespace DOJO_ESTUDOS
         public int GetScore() { return score; }
 
         public IAState GetState() { return State; }
+
+        public List<Projectile> GetProjectiles() { return projectiles;}
 
         public float GetScale() { return scale; }
 

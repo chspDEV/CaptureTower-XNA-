@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace DOJO_ESTUDOS
 {
@@ -15,12 +16,13 @@ namespace DOJO_ESTUDOS
         public float timerMax = 60f * 2f; // 2 Minutos
         public float timer; 
         public bool HasWinner {get; private set;}
+        public bool activeDebug = false;
+        public float mapWidth = 0f;
+        public float mapHeight = 0f;
 
         private List<string> nomes_aleatorios = new List<string>
         {
-            "Max",
-            "Henrique",
-            "Jhon"
+ 
         };
 
 
@@ -37,6 +39,8 @@ namespace DOJO_ESTUDOS
 
         public void Update(GameTime gt)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.K)) { activeDebug = !activeDebug; }
+
             if (timer <= 0f && !HasWinner)
             {
                 timer = 0f;
@@ -48,7 +52,6 @@ namespace DOJO_ESTUDOS
             }
         }
 
-       
         public string GetRandomName(Random random)
         {
             if (nomes_aleatorios.Count == 0)
@@ -76,7 +79,7 @@ namespace DOJO_ESTUDOS
         public void CheckWin()
         {
             if (HasWinner) return;
-
+          
             List<IA> survivors = new List<IA>();
             IA winner;
 
@@ -84,6 +87,8 @@ namespace DOJO_ESTUDOS
             {
                 if (ia.GetHealth() > 0f) survivors.Add(ia);
             }
+
+            if (survivors.Count > 1 && timer < timerMax) return;
 
             //Desempate por pontos
             if (survivors.Count >= 2)

@@ -34,10 +34,10 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\CaptureTower\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Modelos\projectileModel.xnb</Output>
-      <Time>2024-11-27T12:16:44.4638111-03:00</Time>
+      <Time>2024-12-01T10:05:39.2489697-03:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Modelos\projectileModel_0.xml</Key>
-        <Value>2024-11-30T20:27:00.1859749-03:00</Value>
+        <Value>2024-12-01T10:05:56.1954121-03:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -117,7 +117,7 @@
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Modelos\projectileModel_0.xml</Output>
-      <Time>2024-11-27T12:16:44.4638111-03:00</Time>
+      <Time>2024-12-01T10:05:39.2489697-03:00</Time>
     </Item>
     <Item>
       <Source>Modelos\TorreModel.fbx</Source>
