@@ -18,21 +18,20 @@ namespace DOJO_ESTUDOS
         private float rotationX;
         private float moveSpeed = 0.5f;
         private float rotationSpeed = 0.02f;
+        public float renderDistance = 1000f;
 
         public Matrix ViewMatrix { get; private set; }
         public Matrix ProjectionMatrix { get; private set; }
+
+        GraphicsDevice gd;
 
         public Camera(GraphicsDevice graphicsDevice)
         {
             Position = new Vector3(0, 30, 10);
             Target = Vector3.Zero;
+            gd = graphicsDevice;
 
-            ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
-                MathHelper.ToRadians(45),
-                graphicsDevice.Viewport.AspectRatio,
-                0.1f,
-                5000f
-            );
+            UpdateProjectionMatrix(renderDistance);
 
             UpdateViewMatrix();
         }
@@ -71,12 +70,37 @@ namespace DOJO_ESTUDOS
             if (keyboardState.IsKeyDown(Keys.Down))
                 rotationX = MathHelper.Clamp(rotationX - rotationSpeed, -MathHelper.PiOver2, MathHelper.PiOver2);
 
+            //Debug render distance
+            if (keyboardState.IsKeyUp(Keys.P))
+            {
+                renderDistance -= 10f;
+                UpdateProjectionMatrix(renderDistance);
+            }
+
+            if (keyboardState.IsKeyUp(Keys.O))
+            {
+                renderDistance += 10f;
+                UpdateProjectionMatrix(renderDistance);
+            }
+                
+
+
             UpdateViewMatrix();
         }
 
         public void ChangePosition(Vector3 newPos)
         {
             Position = newPos;
+        }
+
+        private void UpdateProjectionMatrix(float _renderDistance)
+        {
+            ProjectionMatrix = Matrix.CreatePerspectiveFieldOfView(
+               MathHelper.ToRadians(45),
+               gd.Viewport.AspectRatio,
+               0.1f,
+               renderDistance
+           );
         }
 
         private void UpdateViewMatrix()

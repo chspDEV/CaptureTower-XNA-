@@ -3,45 +3,42 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DOJO_ESTUDOS
 {
-    public class Projectile
+    public class Projectile: Collider
     {
         public Vector3 Position { get; private set; }
         public Vector3 Direction { get; private set; }
         public int Damage { get; private set; }
         public bool IsActive { get; private set; }
-
-        private float speed = 10f;
-        //scale = .35f;
-        private float scale = .35f;
-        private Model model;  // O modelo 3D do projétil
+        
+        private float speed = 35f;
+        private float scale = .6f;
+        private Model model; 
 
         private float lifeTime = 10f;
         private float count;
         public string identifier = " [b] ";
 
-        public Projectile(Vector3 startPosition, Vector3 targetPosition, int damage, Model projectileModel)
+        public IA colliderIa = null;
+        public IA pai;
+
+        public Projectile(IA pai, Vector3 startPosition, Vector3 targetPosition, int damage, Model projectileModel)
         {
+            this.pai = pai;
+
+            //achando direcao
             Direction = Vector3.Normalize(targetPosition - startPosition);
 
-            // Evitar spawn dentro do alvo
-            float collisionDistance = 1f; 
+            Position = startPosition + Direction;
 
-            if (Vector3.Distance(startPosition, targetPosition) < collisionDistance)
-            {
-                Position = startPosition - Direction * collisionDistance;
-            }
-            else
-            {
-                Position = startPosition;
-            }
-
-            //Debug
-            //GameManager.Instance.camera.ChangePosition(Position);
+            //criando colisor
+            Vector3 scaleBox = new Vector3(scale, scale, scale);
+            SetupBoundingBox(Position - scaleBox, Position + scaleBox);
 
             Damage = damage;
             IsActive = true;
             model = projectileModel;
         }
+
 
         public void Update(GameTime gameTime)
         {
@@ -52,40 +49,41 @@ namespace DOJO_ESTUDOS
             count +=(float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (count >= lifeTime) Deactivate();
+
+            UpdateBoundingBox(Position);
+            CheckCollision();
+            AttackLogic();
         }
 
-        // Método para desativar o projétil em caso de colisão
         public void Deactivate()
         {
             IsActive = false;
         }
 
-        public bool CheckCollision(IA caller)
+        public void AttackLogic()
         {
-            float collisionDistance = 1f; 
-            float closestDistance = float.MaxValue;
+            if (colliderIa != null)
+            {
+                colliderIa.TakeDamage(Damage);
+                pai.AddScore(1); //recompensa por acertar
+                if (colliderIa.GetState() == IAState.Dead) pai.AddScore(5); //recompensa por matar
+                UIManager.Instance.UpdateRanking();
+                Deactivate(); 
+            }
+        }
+
+        public void CheckCollision()
+        {
             IA closestTarget = null;
 
             foreach (IA ia in GameManager.Instance.ias)
             {
-                if (ia != caller) continue;
-
-                float distance = Vector3.Distance(Position, ia.Position);
-
-                // Atualiza o alvo mais próximo
-                if (distance < closestDistance)
+                if (collider.Intersects(ia.collider) && ia != pai)
                 {
-                    closestDistance = distance;
                     closestTarget = ia;
+                    colliderIa = ia;
                 }
             }
-
-            if (closestTarget != null && closestDistance <= collisionDistance)
-            {
-                return true;
-            }
-
-            return false;
         }
 
         // Método para desenhar o projétil

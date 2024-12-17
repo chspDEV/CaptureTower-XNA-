@@ -50,10 +50,18 @@ namespace DOJO_ESTUDOS
 
             if (elapsedTime >= 1.0f)
             {
+                // Calcular o FPS
                 fps = frameCount / elapsedTime;
+
+                // Exibir o FPS formatado
                 SetText(debugTexts, 0, "FPS: " + fps.ToString("0.00"));
+
+                // Exibir a distância de renderização
+                SetText(debugTexts, 2, "Render Distance: " + GameManager.Instance.camera.renderDistance.ToString());
+
+                // Resetar os valores para o próximo segundo
                 frameCount = 0;
-                elapsedTime = 0;
+                elapsedTime = 0.0f;  // Garantir que o tempo acumulado seja resetado de forma limpa
             }
         }
 
@@ -169,7 +177,7 @@ namespace DOJO_ESTUDOS
             {
                 if (debugTexts[i] != null)
                 {
-                    spriteBatch.DrawString(fonts[0], debugTexts[i], new Vector2(1150, 20 * i), Color.White);
+                    spriteBatch.DrawString(fonts[0], debugTexts[i], new Vector2(1100, 20 * i), Color.White);
                 }
             }
             

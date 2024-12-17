@@ -13,18 +13,55 @@ namespace DOJO_ESTUDOS
         public List<IA> ias;
         public List<Tower> towers;
         public Camera camera;
-        public float timerMax = 60f * 2f; // 2 Minutos
+        public float timerMax = 60 * 2f; // 2 Minutos
         public float timer; 
         public bool HasWinner {get; private set;}
         public bool activeDebug = false;
         public float mapWidth = 0f;
         public float mapHeight = 0f;
+        public float maxDistanceToMove = 0f;
 
         private List<string> nomes_aleatorios = new List<string>
         {
- 
+            "Claudio",
+            "Maisa",
+            "Teixeira",
+            "Nathan",
+            "Carlos barriga mole",
+            "CaiozinOCRIA",
+            "ArthurMiraTorta",
+            "MeioAnao",
+            "XupaCus",
+            "Safadas",
+            "CagadaMole",
+            "Ressaca_De_Domingo",
+            "Fabio",
+            "Serpa_THEGOAT",
+            "Marcelo_LEVELUP",
+            "AssembleiaDoMarcelo",
+            "Gabriel_D_Mago",
+            "RodrigoDeputa",
+            "Brito_De_Calcinha",
+            "Green",
+            "Barbabao",
+            "Chefao",
+            "Pardal Latrocinios & Furtos",
+            "Furtado_Foi_Furtado",
+            "Lucas_Camisinha",
+            "Ervilha",
+            "Gemeos",
+            "Lairton Mata Cubo",
+            "Ate cubanos",
+            "TomelheRola",
+            "Bon sonaro",
+            "Chuta-Cus",
+            "Madureira",
+            "Duque de Caxias",
+            "Serra de Paracambi",
+            "Japeri",
+            "Os segredos misteriosos de Morro Azul",
+            "Feedback TCP 1"
         };
-
 
         public GameManager()
         {
@@ -55,7 +92,7 @@ namespace DOJO_ESTUDOS
         public string GetRandomName(Random random)
         {
             if (nomes_aleatorios.Count == 0)
-                return "NOME_GENERICO" + random.Next(9999);
+                return "IA_" + random.Next(9999);
 
             int index = random.Next(nomes_aleatorios.Count);
             string selectedName = nomes_aleatorios[index];
@@ -78,28 +115,30 @@ namespace DOJO_ESTUDOS
 
         public void CheckWin()
         {
-            if (HasWinner) return;
-          
-            List<IA> survivors = new List<IA>();
-            IA winner;
+            if (HasWinner) return;  // Se já houver um vencedor, não faz nada.
 
+            List<IA> survivors = new List<IA>();
+
+            // Adiciona todos os IA que ainda têm saúde positiva.
             foreach (var ia in ias)
             {
                 if (ia.GetHealth() > 0f) survivors.Add(ia);
             }
 
-            if (survivors.Count > 1 && timer < timerMax) return;
-
-            //Desempate por pontos
-            if (survivors.Count >= 2)
+            // Se houver apenas 1 sobrevivente ou o tempo acabou, o jogo termina.
+            if (survivors.Count == 1 || timer <= 0)
             {
-                survivors.Sort((ia1, ia2) => ia2.GetScore().CompareTo(ia1.GetScore()));
+                // Se há pelo menos um sobrevivente, escolhe o vencedor.
+                if (survivors.Count > 0)
+                {
+                    IA winner = survivors[0];  // O vencedor é o único sobrevivente.
+                    winner.name += " [VENCEDOR] ";  // Marca o vencedor com o sufixo "[VENCEDOR]".
+                    HasWinner = true;  // Define que há um vencedor.
+                }
+                return;  // Termina a função, pois já há um vencedor ou o tempo acabou.
             }
-
-            winner = survivors[0];
-            winner.name += " [VENCEDOR] ";
-            HasWinner = true;
         }
+
 
         public void UpdateIAList(List<IA> i)
         {

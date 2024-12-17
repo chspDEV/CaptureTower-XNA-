@@ -71,13 +71,13 @@ namespace DOJO_ESTUDOS
 
             // Instanciando IAs e Torres
 
-            int players = 2;
+            int players = 4;
             UIManager.Instance.SetText(UIManager.Instance.debugTexts, 1, "Players: " + players.ToString());
 
             ui.ranking = new List<String>(players);
 
-            ground = new Ground(GraphicsDevice, Color.Green, players * 7f);
-
+            ground = new Ground(GraphicsDevice, Color.Green, players * 14f);
+            gm.maxDistanceToMove = ground.scale;
             
             int offsetSpawn = Math.Max(5, (int)(10 * Math.Sqrt(players)));
 
@@ -104,7 +104,7 @@ namespace DOJO_ESTUDOS
                         r * offsetSpawn - gridHeight / 2
                     );
 
-                    IA ia = new IA(iaModel, projectileModel, startPosition, initialHealth: 100, damage: 5, scale: .01f);
+                    IA ia = new IA(iaModel, projectileModel, startPosition, initialHealth: 100, damage: 1, scale: .01f);
 
                     startPosition.Z -= 5f;
                     startPosition.Y -= 1f;

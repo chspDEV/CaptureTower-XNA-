@@ -14,12 +14,12 @@ namespace DOJO_ESTUDOS
         MoveRight,
         MoveFront,
         MoveBack,
-        Patrol,
+        Catch,
         Attacking,
         Dead
     }
 
-    public class IA
+    public class IA: Collider
     {
         public Vector3 Position { get; private set; }
         private Matrix Orientation = Matrix.Identity;
@@ -36,7 +36,7 @@ namespace DOJO_ESTUDOS
         private float moveDistance = .05f;
         private float searchDistance = 100f;
         
-        private float attackCooldown = 1f; 
+        private float attackCooldown = .5f; 
         private float attackTimer = 0;
 
         private int score = 0;
@@ -47,10 +47,15 @@ namespace DOJO_ESTUDOS
 
         private List<Projectile> projectiles = new List<Projectile>();  
         private IA target;
+
         private List<Tower> towers;
+
+        private int CatchScore = 0;
 
         public IA(Model model, Model projectileModel, Vector3 startPosition, int initialHealth, int damage, float scale = 1.0f)
         {
+            
+
             this.projectileModel = projectileModel;
             this.model = model;
             Position = startPosition;
@@ -59,8 +64,12 @@ namespace DOJO_ESTUDOS
             State = IAState.Idle;
             this.scale = scale;
 
+            //debug para trocar estados
+            randomStateTimerMax = 2f;
 
-            randomStateTimerMax = Math.Max(1f, 1f * (float)random.NextDouble() * random.Next(1,2));
+            //criando colisor
+            Vector3 scaleBox = new Vector3(scale, scale, scale);
+            SetupBoundingBox(Position - scaleBox, Position + scaleBox);
 
             //decidindo nome
             name = GameManager.Instance.GetRandomName(random);
@@ -98,8 +107,15 @@ namespace DOJO_ESTUDOS
                     FindNearestTarget(); //DEBUG so por enquanto dps tirar
                     Attack(gameTime);
                     break;
-                case IAState.Patrol:
-                    FindNearestTarget();
+                case IAState.Catch:
+                    if (FindTower())
+                    {
+                        CatchScore++;
+                    }
+                    else
+                    {
+                        CatchScore = 0;
+                    }
                     break;
                 case IAState.Dead:
                     
@@ -128,17 +144,22 @@ namespace DOJO_ESTUDOS
 
         private void Move(Vector3 direction)
         {
+            float offset = GameManager.Instance.maxDistanceToMove; 
+
             Vector3 deslocamento = direction * speed * 0.1f;
             Vector3 posicaoFutura = Position + deslocamento;
 
             // X
-            if (posicaoFutura.X < 0 || posicaoFutura.X > GameManager.Instance.mapWidth)
+            if (posicaoFutura.X < -offset + scale || posicaoFutura.X > offset - scale)
+            {
                 deslocamento.X = 0; 
+            }
 
             // Z
-            if (posicaoFutura.Z < 0 || posicaoFutura.Z > GameManager.Instance.mapHeight)
+            if (posicaoFutura.Z < -offset + scale || posicaoFutura.Z > offset - scale)
+            {
                 deslocamento.Z = 0; 
-
+            }
 
             Position += deslocamento;
         }
@@ -158,7 +179,7 @@ namespace DOJO_ESTUDOS
             if (target != null) // SE EXISTE UM ALVO
             {
                 // Cria um novo projetil
-                var projectile = new Projectile(Position, target.Position, Damage, projectileModel);
+                var projectile = new Projectile(this, Position, target.Position, Damage, projectileModel);
                 projectiles.Add(projectile);
 
             }
@@ -175,6 +196,8 @@ namespace DOJO_ESTUDOS
             }
         }
 
+        public void AddScore(int newScore) { score += newScore; }
+
         private void UpdateProjectiles(GameTime gameTime)
         {
             foreach (var projectile in projectiles)
@@ -182,18 +205,6 @@ namespace DOJO_ESTUDOS
                 if (projectile.IsActive)
                 {
                     projectile.Update(gameTime);
-
-                    // Verifica se o projetil acertou
-                    if (target != null && projectile.CheckCollision(this))
-                    {
-                        target.TakeDamage(projectile.Damage);
-                        score++;
-                        UIManager.Instance.UpdateRanking();
-                        projectile.Deactivate(); // Desativa o projetil apos a colisão
-
-                        //Matei
-                        if (target.State == IAState.Dead) { score += 5; UIManager.Instance.UpdateRanking(); }
-                    }
                 }
             }
 
@@ -220,12 +231,19 @@ namespace DOJO_ESTUDOS
             }
         }
 
-        // Métodos Públicos para Controlar as Ações da IA Externamente
+        // Métodos Públicos
         public void SetState(IAState newState)
         {
             if (State != IAState.Dead)
                 State = newState;
         }
+
+        public void MoveLeft() { State = IAState.MoveLeft; }
+        public void MoveRight() { State = IAState.MoveRight; }
+        public void MoveBack() { State = IAState.MoveBack; }
+        public void MoveFront() { State = IAState.MoveFront; }
+
+        public void Catch() { State = IAState.Catch; }
 
         public void FindNearestTarget()
         {
@@ -271,6 +289,41 @@ namespace DOJO_ESTUDOS
             }
 
             target = closestTarget;
+        }
+
+        private bool FindTower()
+        {
+            
+            Vector3[] directions = {
+            Vector3.Forward, Vector3.Backward,
+            Vector3.Left, Vector3.Right,
+            Vector3.Up, Vector3.Down
+            };
+
+            foreach (var direction in directions)
+            {
+                Ray ray = new Ray(Position, direction);
+
+                foreach (var torre in GameManager.Instance.ias)
+                {
+                    if (torre == this || torre.State == IAState.Dead) continue;
+
+                    // Testa se o Ray colide com o alvo
+                    float? distance = ray.Intersects(torre.collider);
+
+                    if (distance.HasValue && distance.Value < 10f)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+
+            }
+
+            return false;
+            
+             
         }
 
         public void StartAttack()
@@ -321,6 +374,9 @@ namespace DOJO_ESTUDOS
 
             //Logica dos estados
             StateLogic(gameTime);
+
+            //Atualiza colisor
+            UpdateBoundingBox(Position);
 
             //Olha para o alvo atual
             LookAtTarget();
