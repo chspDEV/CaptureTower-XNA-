@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="World\BoundingBoxRenderer.cs" />
     <Compile Include="World\Camera.cs" />
     <Compile Include="Managers\UIManager.cs" />
     <Compile Include="Managers\GameManager.cs" />

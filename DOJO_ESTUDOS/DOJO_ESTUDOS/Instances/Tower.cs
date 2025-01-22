@@ -23,43 +23,36 @@ namespace DOJO_ESTUDOS
             this.scale = scale;
 
             //criando colisor
-            Vector3 scaleBox = new Vector3(scale, scale, scale);
+            Vector3 scaleBox = new Vector3(scale * 3f, scale * 3f, scale * 3f);
             SetupBoundingBox(Position - scaleBox, Position + scaleBox);
         }
 
         public void Update(GameTime gt)
         {
-
-            if (owner != null && owner.GetState() == IAState.Dead) 
-            {
-                owner = null;
-                myColor = Vector3.One;
-            } 
+            
         }
 
-        private void CheckNewOwner()
+        public void CheckNewOwner()
         {
-            IA newOwner = null;
-            List<IA> inRange = new List<IA>();
-            float maxScore = float.MaxValue;
-
             foreach (IA ia in GameManager.Instance.ias)
             {
-                if (collider.Intersects(ia.collider))
+                if (collider.Intersects(ia.collider) && owner != ia) // Evita reassociar o mesmo owner
                 {
                     if (ia.GetState() == IAState.Catch)
-                    { 
-                        
+                    {
+                        ia.CaptureTower(this); // Não recompensa múltiplas vezes
+                        SetupOwner(ia); // Define o novo owner
                     }
                 }
             }
         }
 
-        public void SetupOwner(IA owner)
-        {
-            if (owner == null) return;
 
-            this.owner = owner;
+        public void SetupOwner(IA _owner)
+        {
+            if (owner == _owner) return; // Evita chamada repetitiva
+
+            owner = _owner; 
             myColor = owner.myColor;
         }
 
@@ -88,6 +81,9 @@ namespace DOJO_ESTUDOS
                 }
                 mesh.Draw();
             }
+
+            
+            
         }
 
     }

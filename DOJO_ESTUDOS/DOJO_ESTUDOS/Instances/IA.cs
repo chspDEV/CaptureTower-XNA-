@@ -9,12 +9,12 @@ namespace DOJO_ESTUDOS
 {
     public enum IAState
     {
-        Idle,
+        Catch,
         MoveLeft,
         MoveRight,
         MoveFront,
         MoveBack,
-        Catch,
+        Idle,
         Attacking,
         Dead
     }
@@ -48,9 +48,7 @@ namespace DOJO_ESTUDOS
         private List<Projectile> projectiles = new List<Projectile>();  
         private IA target;
 
-        private List<Tower> towers;
-
-        private int CatchScore = 0;
+        private List<Tower> towers = new List<Tower>();
 
         public IA(Model model, Model projectileModel, Vector3 startPosition, int initialHealth, int damage, float scale = 1.0f)
         {
@@ -68,7 +66,7 @@ namespace DOJO_ESTUDOS
             randomStateTimerMax = 2f;
 
             //criando colisor
-            Vector3 scaleBox = new Vector3(scale, scale, scale);
+            Vector3 scaleBox = new Vector3(scale * 100f, scale * 100f, scale * 100f);
             SetupBoundingBox(Position - scaleBox, Position + scaleBox);
 
             //decidindo nome
@@ -108,17 +106,19 @@ namespace DOJO_ESTUDOS
                     Attack(gameTime);
                     break;
                 case IAState.Catch:
-                    if (FindTower())
-                    {
-                        CatchScore++;
-                    }
-                    else
-                    {
-                        CatchScore = 0;
-                    }
+                    //COLOCAR PARA IR PRA TORRE MAIS PROXIMA
+                    FindTower();
                     break;
                 case IAState.Dead:
-                    
+
+                    foreach (var t in towers)
+                    {
+                        t.owner = null;
+                        t.myColor = Vector3.Zero;
+                    }
+
+                    towers.Clear();
+
                     if (Position.Y > -0.5f)
                     {
                         Move(new Vector3(0, -moveDistance, 0));
@@ -133,7 +133,9 @@ namespace DOJO_ESTUDOS
         {
             // Escolhe aleatoriamente um novo estado para a IA
             Array values = Enum.GetValues(typeof(IAState));
+
             IAState newState = (IAState)values.GetValue(random.Next(values.Length));
+            //IAState newState = (IAState)values.GetValue(random.Next(0,5));
 
             // Definir um novo estado, mas evitar que a IA mude para o estado "Dead" aleatoriamente
             if (newState != IAState.Dead)
@@ -166,7 +168,7 @@ namespace DOJO_ESTUDOS
 
         private void Attack(GameTime gameTime)
         {
-            attackTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            
             if (attackTimer >= attackCooldown)
             {
                 ShootProjectile();
@@ -188,7 +190,6 @@ namespace DOJO_ESTUDOS
         public void TakeDamage(int damage)
         {
             Health -= damage;
-            score--;
             UIManager.Instance.UpdateRanking();
             if (Health <= 0)
             {
@@ -231,20 +232,62 @@ namespace DOJO_ESTUDOS
             }
         }
 
-        // Métodos Públicos
+        public void CaptureTower(Tower newTower, bool reward = true)
+        {
+            if (!towers.Contains(newTower)) // Evita capturar a mesma torre
+            {
+                if (reward) score += 10; 
+                towers.Add(newTower);
+            }
+        }
+
+        private bool FindTower()
+        {
+
+            Vector3[] directions = {
+            Vector3.Forward, Vector3.Backward,
+            Vector3.Left, Vector3.Right,
+            new Vector3(1, 0, 1), new Vector3(-1, 0, 1),
+            new Vector3(1, 0, -1), new Vector3(-1, 0, -1)
+            };
+    
+            foreach (var direction in directions)
+            {
+                Ray ray = new Ray(Position, direction);
+
+                foreach (Tower torre in GameManager.Instance.towers)
+                {
+                    if (this.towers.Contains(torre)) continue; // Evita verificar torres já capturadas
+
+                    float? distance = ray.Intersects(torre.collider);
+
+                    if (distance.HasValue && distance.Value < 100f)
+                    {
+                        torre.CheckNewOwner();
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+
+        #region Metodos externalizados em LUA
+
+        // Métodos Estado
         public void SetState(IAState newState)
         {
             if (State != IAState.Dead)
                 State = newState;
         }
-
-        public void MoveLeft() { State = IAState.MoveLeft; }
-        public void MoveRight() { State = IAState.MoveRight; }
-        public void MoveBack() { State = IAState.MoveBack; }
-        public void MoveFront() { State = IAState.MoveFront; }
-
-        public void Catch() { State = IAState.Catch; }
-
+        public void MoveLeft() { if (State != IAState.Dead) State = IAState.MoveLeft; }
+        public void MoveRight() { if (State != IAState.Dead) State = IAState.MoveRight; }
+        public void MoveBack() { if (State != IAState.Dead) State = IAState.MoveBack; }
+        public void MoveFront() { if (State != IAState.Dead) State = IAState.MoveFront; }
+        public void Catch() { if (State != IAState.Dead) State = IAState.Catch; }
+        public void StartAttack() { if (State != IAState.Dead) State = IAState.Attacking;   }
+        public void Idle() { if (State != IAState.Dead) State = IAState.Idle; }
         public void FindNearestTarget()
         {
             float detectionRadius = searchDistance;
@@ -291,69 +334,25 @@ namespace DOJO_ESTUDOS
             target = closestTarget;
         }
 
-        private bool FindTower()
-        {
-            
-            Vector3[] directions = {
-            Vector3.Forward, Vector3.Backward,
-            Vector3.Left, Vector3.Right,
-            Vector3.Up, Vector3.Down
-            };
-
-            foreach (var direction in directions)
-            {
-                Ray ray = new Ray(Position, direction);
-
-                foreach (var torre in GameManager.Instance.ias)
-                {
-                    if (torre == this || torre.State == IAState.Dead) continue;
-
-                    // Testa se o Ray colide com o alvo
-                    float? distance = ray.Intersects(torre.collider);
-
-                    if (distance.HasValue && distance.Value < 10f)
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }
-
-            }
-
-            return false;
-            
-             
-        }
-
-        public void StartAttack()
-        {
-            if (State != IAState.Dead)
-                State = IAState.Attacking;
-        }
-
-        public void StopAttack()
-        {
-            if (State == IAState.Attacking)
-                State = IAState.Idle;
-        }
-
+        
         // Métodos de GET
         public int GetHealth() { return Health; }
 
         public int GetScore() { return score; }
 
+        public int GetMaxHealth() { return 100; }
+
+        #endregion
+
         public IAState GetState() { return State; }
 
         public List<Projectile> GetProjectiles() { return projectiles;}
 
+        public List<Tower> GetTowers() { return towers; }
+
         public float GetScale() { return scale; }
 
-        public void CaptureTower(Tower newTower)
-        {
-            score += 10;
-            towers.Add(newTower);
-        }
+        
 
         // Draw e Update
 
@@ -365,12 +364,19 @@ namespace DOJO_ESTUDOS
 
             randomStateTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-
+            //Debug
             if (randomStateTimer >= randomStateTimerMax && State != IAState.Dead)
             {
                 randomStateDebugger();
                 randomStateTimer = 0;
             }
+
+            //Logica para ataques
+            if (attackTimer < attackCooldown)
+            {
+                attackTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            
 
             //Logica dos estados
             StateLogic(gameTime);

@@ -76,7 +76,7 @@ namespace DOJO_ESTUDOS
                 string txt;
 
                 //TOP Mostrando com detalhes apenas o top 10
-                if (i < 10) 
+                if (i < 9) 
                 {
                     txt = (i + 1).ToString() + " - HP(" + currentIA.GetHealth() + "/100) " + currentIA.name + " " + currentIA.GetScore() + "pts";
                 
@@ -106,7 +106,7 @@ namespace DOJO_ESTUDOS
             // 3D para 2D
             Vector3 screenPosition = graphicsDevice.Viewport.Project(textPosition, projection, view, Matrix.Identity);
 
-            // Verificar se a posição está na tela
+            // Verificar se a posicao esta na tela
             if (screenPosition.Z >= 0 && screenPosition.Z <= 1)
             {
                 // Desenhar o texto
@@ -114,10 +114,11 @@ namespace DOJO_ESTUDOS
                 Vector2 textSize = font.MeasureString(displayName);
                 Vector2 textScreenPosition = new Vector2(screenPosition.X - textSize.X / 2, screenPosition.Y - textSize.Y / 2);
 
-                Vector2 debugOffset = new Vector2(0, 15f);
+                Vector2 debugOffset = new Vector2(0, 17f);
 
                 spriteBatch.DrawString(font, displayName, textScreenPosition, Color.White);
 
+                //DEBUG TEXTS
                 if (GameManager.Instance.activeDebug)
                 {
                     spriteBatch.DrawString(font, instance.GetState().ToString(), textScreenPosition - debugOffset, Color.White);
@@ -131,6 +132,15 @@ namespace DOJO_ESTUDOS
                     } 
 
                     spriteBatch.DrawString(font, str, textScreenPosition + debugOffset * 2f, Color.Red);
+
+                    string str2 = "";
+
+                    for (var i = 0; i < instance.GetTowers().Count; i++)
+                    {
+                        str2 += "[T" + i.ToString() + "] ";
+                    }
+
+                    spriteBatch.DrawString(font, str2, textScreenPosition + debugOffset * 3f, Color.Aquamarine);
                 }
                     
                
@@ -188,7 +198,7 @@ namespace DOJO_ESTUDOS
                 {
                     SpriteFont fnt;
 
-                    if (i > 9) // ESTA FORA DO PODIO
+                    if (i > 10) // ESTA FORA DO PODIO
                     {
                         fnt = fonts[4];
                         spriteBatch.DrawString(fnt, ranking[i], new Vector2(10, (20 * 9 - 50) + i * 7.5f), Color.White);

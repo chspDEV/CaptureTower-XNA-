@@ -2,19 +2,6 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>Modelos\IAModel.fbx</Source>
-      <Name>Modelos\IAModel</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\CaptureTower\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Modelos\IAModel.xnb</Output>
-      <Time>2024-11-11T20:42:15.0137166-03:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\Modelos\IAModel_0.xml</Key>
-        <Value>2024-11-30T20:27:00.0879589-03:00</Value>
-      </Dependency>
-    </Item>
-    <Item>
       <Source>Modelos\GroundModel.fbx</Source>
       <Name>Modelos\GroundModel</Name>
       <Importer>FbxImporter</Importer>
@@ -24,7 +11,7 @@
       <Time>2024-11-11T21:06:03.4913585-03:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Modelos\GroundModel_0.xml</Key>
-        <Value>2024-11-30T20:27:00.1405719-03:00</Value>
+        <Value>2025-01-22T10:12:41.7751019-03:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -37,7 +24,7 @@
       <Time>2024-12-01T10:05:39.2489697-03:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Modelos\projectileModel_0.xml</Key>
-        <Value>2024-12-01T10:05:56.1954121-03:00</Value>
+        <Value>2025-01-22T10:12:41.9330667-03:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -47,10 +34,23 @@
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\CaptureTower\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Modelos\TorreModel.xnb</Output>
-      <Time>2024-11-30T11:17:55.5677183-03:00</Time>
+      <Time>2025-01-19T13:43:32.5431451-03:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Modelos\TorreModel_0.xml</Key>
-        <Value>2024-11-30T20:27:00.2406133-03:00</Value>
+        <Value>2025-01-22T10:12:41.972417-03:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Modelos\IAModel.fbx</Source>
+      <Name>Modelos\IAModel</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Jogos Programando\xna_estudos\DOJO_ESTUDOS\CaptureTower\DOJO_ESTUDOS\DOJO_ESTUDOS\bin\x86\Debug\Content\Modelos\IAModel.xnb</Output>
+      <Time>2025-01-19T13:50:14.5703846-03:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Modelos\IAModel_0.xml</Key>
+        <Value>2025-01-22T10:12:42.0122596-03:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -99,13 +99,6 @@
       <Time>2024-11-30T19:39:29.3423392-03:00</Time>
     </Item>
     <Item>
-      <Source>Modelos\IAModel.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\Modelos\IAModel_0.xml</Output>
-      <Time>2024-11-11T20:42:15.0137166-03:00</Time>
-    </Item>
-    <Item>
       <Source>Modelos\GroundModel.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
@@ -124,7 +117,14 @@
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Modelos\TorreModel_0.xml</Output>
-      <Time>2024-11-30T11:17:55.5677183-03:00</Time>
+      <Time>2025-01-19T13:43:32.5431451-03:00</Time>
+    </Item>
+    <Item>
+      <Source>Modelos\IAModel.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Modelos\IAModel_0.xml</Output>
+      <Time>2025-01-19T13:50:14.5703846-03:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -164,8 +164,8 @@
         <Value>2011-09-01T16:22:30-03:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2024-11-03T19:59:34.7542328-03:00</Value>
+        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2025-01-20T21:35:06.7786118-03:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

@@ -60,7 +60,15 @@ namespace DOJO_ESTUDOS
             "Serra de Paracambi",
             "Japeri",
             "Os segredos misteriosos de Morro Azul",
-            "Feedback TCP 1"
+            "Feedback TCP 1",
+            "Jonas",
+            "excel do jonas",
+            "indiano arrombado",
+            "explodidor de caneta",
+            "suvaco de cachorro",
+            "amanda cerebro lisin",
+            "cala a boca manfro",
+            "vai toma no cu joao marcos",
         };
 
         public GameManager()

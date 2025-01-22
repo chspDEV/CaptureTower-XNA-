@@ -46,6 +46,7 @@ namespace DOJO_ESTUDOS
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            BoundingBoxRenderer.Initialize(GraphicsDevice);
 
             // Carregando modelos
             iaModel = Content.Load<Model>(@"Modelos\IAModel");
@@ -71,7 +72,7 @@ namespace DOJO_ESTUDOS
 
             // Instanciando IAs e Torres
 
-            int players = 4;
+            int players = 100;
             UIManager.Instance.SetText(UIManager.Instance.debugTexts, 1, "Players: " + players.ToString());
 
             ui.ranking = new List<String>(players);
@@ -81,8 +82,8 @@ namespace DOJO_ESTUDOS
             
             int offsetSpawn = Math.Max(5, (int)(10 * Math.Sqrt(players)));
 
-            int columns = (int)Math.Ceiling(Math.Sqrt(players)); // Número de colunas RAIZ QUADRADA DOS JOGADORES (Arredondado pra cima)
-            int rows = (int)Math.Ceiling((float)players / columns); // Número de linhas Jogadores dividido por colunas (Arredondado pra cima)
+            int columns = (int)Math.Ceiling(Math.Sqrt(players)); // Número de colunas: RAIZ QUADRADA DOS JOGADORES (Arredondado pra cima)
+            int rows = (int)Math.Ceiling((float)players / columns); // Número de linhas: Jogadores dividido por colunas (Arredondado pra cima)
 
             // tamanhos grid
             float gridWidth = (columns - 1) * offsetSpawn;
@@ -100,17 +101,22 @@ namespace DOJO_ESTUDOS
 
                     Vector3 startPosition = new Vector3(
                         c * offsetSpawn - gridWidth / 2,       
-                        1,
+                        0,
                         r * offsetSpawn - gridHeight / 2
                     );
 
-                    IA ia = new IA(iaModel, projectileModel, startPosition, initialHealth: 100, damage: 1, scale: .01f);
+                    IA ia = new IA(iaModel, projectileModel, startPosition, initialHealth: 100, damage: 10, scale: .01f);
 
                     startPosition.Z -= 5f;
                     startPosition.Y -= 1f;
                     Tower torre = new Tower(towerModel, startPosition, scale: 2f);
-                    torre.SetupOwner(ia);
 
+                    
+                    //Dizendo quem possui a torre gerada e configurando
+                    torre.owner = ia;
+                    ia.CaptureTower(torre, false);
+                    torre.myColor = ia.myColor;
+                    
                    
                     ias.Add(ia);
                     towers.Add(torre);
@@ -158,12 +164,25 @@ namespace DOJO_ESTUDOS
             foreach (var ia in ias)
             {
                 ia.Draw(camera.ViewMatrix, camera.ProjectionMatrix);
+                if (GameManager.Instance.activeDebug)
+                {
+                    BoundingBoxRenderer.Draw(GraphicsDevice, ia.collider, camera.ViewMatrix, camera.ProjectionMatrix, Color.Pink);
+
+                    foreach (var p in ia.GetProjectiles())
+                    {
+                       BoundingBoxRenderer.Draw(GraphicsDevice, p.collider, camera.ViewMatrix, camera.ProjectionMatrix, Color.Orange);
+                    }
+                }
             }
 
             // TORRES
             foreach (var t in towers)
             {
                 t.Draw(camera.ViewMatrix, camera.ProjectionMatrix);
+                if (GameManager.Instance.activeDebug)
+                {
+                    BoundingBoxRenderer.Draw(GraphicsDevice, t.collider, camera.ViewMatrix, camera.ProjectionMatrix, Color.Red);
+                }
             }
 
             // INTERFACE

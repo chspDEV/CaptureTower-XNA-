@@ -65,8 +65,7 @@ namespace DOJO_ESTUDOS
             if (colliderIa != null)
             {
                 colliderIa.TakeDamage(Damage);
-                pai.AddScore(1); //recompensa por acertar
-                if (colliderIa.GetState() == IAState.Dead) pai.AddScore(5); //recompensa por matar
+                if (colliderIa.GetState() == IAState.Dead) pai.AddScore(10); //recompensa por matar
                 UIManager.Instance.UpdateRanking();
                 Deactivate(); 
             }
