@@ -2,7 +2,7 @@
 
 ![Linguagem Principal](https://img.shields.io/badge/C%23-100%25-blueviolet)
 ![Framework](https://img.shields.io/badge/Microsoft%20XNA%204.0-legacy-orange)
-![Status](https://img.shields.io/badge/status-arquivado-lightgrey)
+![Status](https://img.shields.io/badge/status-concluido)
 
 > Um projeto de simulação no estilo "Battle Royale" onde múltiplas IAs competem entre si para dominar o cenário. O projeto foi desenvolvido para a matéria de "Inteligência Artificial para Jogos" do curso de Jogos Digitais, utilizando o framework Microsoft XNA.
 
