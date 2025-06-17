@@ -14,7 +14,7 @@ Este projeto funciona como uma bancada de testes (*testbed*) para IAs, onde a l�
     * Acumulando pontos ao capturar torres.
     * Sobrevivendo por mais tempo que as outras (estilo Battle Royale).
     * Eliminando outras IAs.
-* **IA Modular:** O comportamento de cada IA é definido em um arquivo `.lua` externo. Isso permite que qualquer pessoa crie sua própria lógica de IA sem precisar recompilar o projeto principal. Os scripts devem ser colocados na pasta `[INFORME AQUI O CAMINHO PARA A PASTA LUA]`.
+* **IA Modular:** O comportamento de cada IA é definido em um arquivo `.lua` externo. Isso permite que qualquer pessoa crie sua própria lógica de IA sem precisar recompilar o projeto principal.
 
 ## 📜 Sobre o Microsoft XNA Framework
 
